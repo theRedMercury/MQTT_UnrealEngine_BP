@@ -2,9 +2,14 @@
 
 MQTTUnreal::MQTTConnection::MQTTConnection(std::string cliName, std::string host, std::string username, std::string pwd, int port, int keepalive)
 {
+	
+#if ENGINE_MINOR_VERSION >= 26
 	//UE_LOG(LogTemp, Warning, TEXT("UMQTTConfig::ip = %s"), *GetDefault<UMQTTConfig>()->IpServer);
-
 	std::string _host = TCHAR_TO_ANSI(*FString(*GetDefault<UMQTTConfig>()->IpServer));
+#else
+	std::string _host = TCHAR_TO_ANSI(*FString(*GetDefault<UMQTTConfigLegacy>()->IpServer));
+#endif
+
 	if (!host.empty()) {
 		_host = host;
 	}

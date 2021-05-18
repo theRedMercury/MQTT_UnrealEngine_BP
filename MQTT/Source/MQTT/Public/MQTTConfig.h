@@ -10,5 +10,5 @@ class UMQTTConfig : public UDeveloperSettings
 
 public:
 	UPROPERTY(EditAnywhere, config, Category = "Variables")
-	FString IpServer = "127.0.0.1";
+		FString IpServer = "127.0.0.1";
 };
