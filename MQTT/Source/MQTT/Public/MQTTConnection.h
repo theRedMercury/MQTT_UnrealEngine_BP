@@ -2,7 +2,11 @@
 
 #include "CoreMinimal.h"
 
+#if ENGINE_MINOR_VERSION >= 26
 #include "MQTTConfig.h"
+#else
+#include "MQTTConfigLegacy.h"
+#endif
 #include "MQTTClient.h"
 
 #include <vector>
