@@ -68,11 +68,23 @@ public class MQTT : ModuleRules
             
             File.Copy(Path.Combine(ThirdPartyPath, LibKey, OsKey, Mosquitto + DllExt), Path.Combine(BinaryPath, Mosquitto + DllExt), true);
             File.Copy(Path.Combine(ThirdPartyPath, LibKey, OsKey, Mosquittopp + DllExt), Path.Combine(BinaryPath, Mosquittopp + DllExt), true);
+
+            if (OsKey == "win64")
+            {
+                File.Copy(Path.Combine(ThirdPartyPath, LibKey, OsKey, "libcrypto-1_1-x64.dll"), Path.Combine(BinaryPath, "libcrypto-1_1-x64.dll"), true);
+                File.Copy(Path.Combine(ThirdPartyPath, LibKey, OsKey, "libssl-1_1-x64.dll"), Path.Combine(BinaryPath, "libssl-1_1-x64.dll"), true);
+            }
         }
         else // Create package : cooked project
         {
             RuntimeDependencies.Add(new RuntimeDependency(Path.Combine("$(BinaryOutputDir)", Mosquitto + DllExt), Path.Combine(BinaryPath, Mosquitto + DllExt)));
             RuntimeDependencies.Add(new RuntimeDependency(Path.Combine("$(BinaryOutputDir)", Mosquittopp + DllExt), Path.Combine(BinaryPath, Mosquittopp + DllExt)));
+
+            if (OsKey == "win64")
+            {
+                RuntimeDependencies.Add(new RuntimeDependency(Path.Combine("$(BinaryOutputDir)", "libcrypto-1_1-x64.dll"), Path.Combine(BinaryPath, "libcrypto-1_1-x64.dll")));
+                RuntimeDependencies.Add(new RuntimeDependency(Path.Combine("$(BinaryOutputDir)", "libssl-1_1-x64.dll"), Path.Combine(BinaryPath, "libssl-1_1-x64.dll")));
+            }
         }
     }
 }

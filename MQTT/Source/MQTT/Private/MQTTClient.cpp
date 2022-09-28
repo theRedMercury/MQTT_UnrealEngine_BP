@@ -1,5 +1,7 @@
 #include "MQTTClient.h"
 
+DEFINE_LOG_CATEGORY(MQTTPluginLog);
+
 MQTTUnreal::MQTTClient::MQTTClient(const char * id) : mosqpp::mosquittopp(id)
 {
 	mosqpp::lib_init();
@@ -54,10 +56,10 @@ void MQTTUnreal::MQTTClient::unSubscribeEvent(SubscribeEvent se)
 void MQTTUnreal::MQTTClient::on_connect(int rc)
 {
 	if (rc != 0) {
-		UE_LOG(LogTemp, Error, TEXT("on_connect error: %s"), ANSI_TO_TCHAR(mosqpp::strerror(rc)));
+		UE_LOG(MQTTPluginLog, Error, TEXT("on_connect error: %s"), ANSI_TO_TCHAR(mosqpp::strerror(rc)));
 		return;
 	}
-	UE_LOG(LogTemp, Log, TEXT("MQTTClient:: on_connect"));
+	UE_LOG(MQTTPluginLog, Log, TEXT("MQTTClient:: on_connect"));
 
 	_incommingCallback(IncommingEvent { MQTTUnreal::IncommingEventKey::OnConnect, "", "", rc });
 }
@@ -65,10 +67,10 @@ void MQTTUnreal::MQTTClient::on_connect(int rc)
 void MQTTUnreal::MQTTClient::on_disconnect(int rc)
 {
 	if (rc != 0) {
-		UE_LOG(LogTemp, Error, TEXT("on_disconnect error: %s"), ANSI_TO_TCHAR(mosqpp::strerror(rc)));
+		UE_LOG(MQTTPluginLog, Error, TEXT("on_disconnect error: %s"), ANSI_TO_TCHAR(mosqpp::strerror(rc)));
 		return;
 	}
-	UE_LOG(LogTemp, Log, TEXT("MQTTClient:: on_disconnect"));
+	UE_LOG(MQTTPluginLog, Log, TEXT("MQTTClient:: on_disconnect"));
 
 	_incommingCallback(IncommingEvent { MQTTUnreal::IncommingEventKey::OnDisconnect, "", "", rc });
 }
@@ -144,7 +146,7 @@ uint32 MQTTUnreal::MQTTClient::Run()
 		// Loop
 		rc = mosqpp::mosquittopp::loop();
 		if (rc != 0) {
-			UE_LOG(LogTemp, Error, TEXT("Mosquitto loop error: %s"), ANSI_TO_TCHAR(mosqpp::strerror(rc)));
+			UE_LOG(MQTTPluginLog, Error, TEXT("Mosquitto loop error: %s"), ANSI_TO_TCHAR(mosqpp::strerror(rc)));
 			mosqpp::mosquittopp::reconnect();
 		}
 	}

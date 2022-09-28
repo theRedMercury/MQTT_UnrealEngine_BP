@@ -4,7 +4,7 @@ MQTTUnreal::MQTTConnection::MQTTConnection(std::string cliName, std::string host
 {
 	
 #if ENGINE_MINOR_VERSION >= 26
-	//UE_LOG(LogTemp, Warning, TEXT("UMQTTConfig::ip = %s"), *GetDefault<UMQTTConfig>()->IpServer);
+	//UE_LOG(MQTTPluginLog, Warning, TEXT("UMQTTConfig::ip = %s"), *GetDefault<UMQTTConfig>()->IpServer);
 	std::string _host = TCHAR_TO_ANSI(*FString(*GetDefault<UMQTTConfig>()->IpServer));
 #else
 	std::string _host = TCHAR_TO_ANSI(*FString(*GetDefault<UMQTTConfigLegacy>()->IpServer));
@@ -14,7 +14,7 @@ MQTTUnreal::MQTTConnection::MQTTConnection(std::string cliName, std::string host
 		_host = host;
 	}
 
-	//UE_LOG(LogTemp, Warning, TEXT("MQTT connect::ip = %s"), *FString(_host.c_str()));
+	//UE_LOG(MQTTPluginLog, Warning, TEXT("MQTT connect::ip = %s"), *FString(_host.c_str()));
 	_mqttClient = new MQTTClient(cliName.c_str());
 	_mqttClient->max_inflight_messages_set(0);
 
@@ -26,7 +26,8 @@ MQTTUnreal::MQTTConnection::MQTTConnection(std::string cliName, std::string host
 	// MQTT Connection
 	int rc = _mqttClient->connect(_host.c_str(), port, keepalive);
 	if (rc != 0) {
-		UE_LOG(LogTemp, Error, TEXT("MQTT connect error: %s"), ANSI_TO_TCHAR(mosquitto_strerror(rc)));
+		FString __host(_host.c_str());
+		UE_LOG(MQTTPluginLog, Error, TEXT("MQTT connect error: %s : %s"), ANSI_TO_TCHAR(mosquitto_strerror(rc)), *__host);
 		delete _mqttClient;
 		_mqttClient = NULL;
 	}

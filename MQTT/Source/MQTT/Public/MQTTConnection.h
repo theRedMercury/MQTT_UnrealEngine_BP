@@ -2,6 +2,8 @@
 
 #include "CoreMinimal.h"
 
+DECLARE_LOG_CATEGORY_EXTERN(MQTTPluginLog, Log, All);
+
 #if ENGINE_MINOR_VERSION >= 26
 #include "MQTTConfig.h"
 #else
