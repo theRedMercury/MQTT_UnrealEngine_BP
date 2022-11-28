@@ -1,4 +1,8 @@
-# MQTT UnrealEngine 4 BP
+# MQTT UnrealEngine 4 & 5 BP
+
+Check branch ue_5 for Unreal Engine 5 : tested on UE 5.1
+
+By default master branch is for EU4
 
 A [MQTT](http://mqtt.org) client with blueprint for [Unreal Engine 4](http://unrealengine.com) with [Mosquitto](http://mosquitto.org/).
 
