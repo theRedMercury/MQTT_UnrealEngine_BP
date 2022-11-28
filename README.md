@@ -1,6 +1,6 @@
 # MQTT UnrealEngine 5 BP
 
-A [MQTT](http://mqtt.org) client with blueprint for [Unreal Engine 4](http://unrealengine.com) with [Mosquitto](http://mosquitto.org/).
+A [MQTT](http://mqtt.org) client with blueprint for [Unreal Engine 5](http://unrealengine.com) with [Mosquitto](http://mosquitto.org/).
 
 Thank's to [amar0k/UnrealMosquitto4.21](https://github.com/amar0k/UnrealMosquitto4.21) for the inspiration.
 
